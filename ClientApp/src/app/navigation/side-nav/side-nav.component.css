@@ -1,0 +1,11 @@
+a {
+  color: white;
+}
+
+a:hover {
+  color: #C1BEBC;
+}
+
+.link-active {
+  color: #2070FF;
+}

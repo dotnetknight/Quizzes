@@ -1,0 +1,22 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<section fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-title fxLayoutAlign="center">Login</mat-card-title>
+    <mat-card-content fxLayoutAlign="center">
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="login(f)">
+        <mat-form-field>
+          <input type="email" matInput placeholder="Your Email" ngModel name="email" email required #emailInput="ngModel">
+          <mat-error *ngIf="!emailInput.hasError('required')">Email is invalid</mat-error>
+          <mat-error *ngIf="emailInput.hasError('required')">Required field</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" #pwd="ngModel" matInput placeholder="Your Password" ngModel name="password" required minlength="6">
+          <mat-hint align="end">{{ pwd.value?.length }} / 6</mat-hint>
+          <mat-error>At least 6 characters required. Currently: {{ pwd.value?.length }} /6</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>

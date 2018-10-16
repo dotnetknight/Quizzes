@@ -1,0 +1,38 @@
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.example-selected-value {
+  margin: 15px 0;
+}
+
+#quizDiv {
+  padding: 30px;
+}
+
+#NqSection {
+  padding: 30px;
+}
+
+#MainCard1 {
+  width: 100%;
+}
+
+.fabBTN {
+  margin-left: 10px;
+}

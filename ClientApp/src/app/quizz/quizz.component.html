@@ -1,0 +1,40 @@
+<div fxLayoutAlign="center" *ngIf="gotData" id="MainDiv">
+  <mat-card fxFlex="90%" fxFlex.xs="95%">
+    <mat-card-title fxLayoutAlign="center">My Quizzes</mat-card-title>
+    <div fxLayoutAlign="center center">
+      <mat-form-field *ngIf="gotData">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <mat-card-content fxLayoutAlign="center">
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <th id="TitleTh" mat-header-cell *matHeaderCellDef> Title </th>
+            <td id="TitleTd" mat-cell *matCellDef="let row"> {{row.title}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-button (click)="playQuiz(row.id)" color="primary" title="Play"><mat-icon>play_arrow</mat-icon></button>
+              <button mat-button (click)="editQuiz(row.id)" color="accent" title="Edit"><mat-icon>edit</mat-icon></button>
+              <button mat-button (click)="deleteQuiz(row.id)" color="warn" title="Delete"><mat-icon>delete</mat-icon></button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

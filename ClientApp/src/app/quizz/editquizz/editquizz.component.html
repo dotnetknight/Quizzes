@@ -1,0 +1,91 @@
+<app-spinner fxLayoutAlign="center center" *ngIf="isLoading"></app-spinner>
+
+<div id="card-container" fxLayoutAlign="center center" *ngIf="haveQuiz" fxFlex.xs="100%">
+  <mat-card id="QuizCard">
+    <mat-card-title fxLayoutAlign="center">Edit Quiz:</mat-card-title>
+    <mat-card-content fxLayoutAlign="center center" fxLayout="column" *ngFor="let quiz of quizList">
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="editQuiz(f)">
+        <mat-form-field>
+          <input type="text" readonly matInput placeholder="Quiz Id" [(ngModel)]="quiz.id" name="id" />
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Quiz Title" [(ngModel)]="quiz.title" name="title" required #titleInput="ngModel" />
+          <mat-error *ngIf="titleInput.hasError('required')">Required field</mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!isLoading">
+          <mat-select placeholder="Choose category" required ngModel name="categoryId" #catInput="ngModel">
+            <mat-option *ngFor="let category of categoryList" [value]="category.id">
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="catInput.hasError('required')">Please choose a category</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Save</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <section fxLayoutAlign="center center" *ngIf="!haveQuestions" id="NqSection">
+    <mat-card id="MainCard1" *ngIf="!isLoading">
+      <mat-card-title fxLayoutAlign="center center">No questions were found in this quiz</mat-card-title>
+      <mat-card-content fxLayoutAlign="center center">
+        <button mat-fab class="fabBTN" (click)="addQuestion()" color="primary" title="Add Question"><mat-icon>question_answer</mat-icon></button>
+        <button mat-fab class="fabBTN" (click)="myQuizzes()" color="accent" title="My Quizzes"><mat-icon>help</mat-icon></button>
+        <button mat-fab class="fabBTN" title="Search Quizzes" (click)="searchQuizzes()"><mat-icon>search</mat-icon></button>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <div id="quizDiv" fxLayoutAlign="center center" *ngIf="gotQuestions" fx.xs="90%">
+    <mat-card *ngIf="!isLoading">
+      <mat-card-title fxLayoutAlign="center">Edit Questions:</mat-card-title>
+      <mat-accordion class="example-headers-align" *ngIf="questionsList">
+        <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle *ngFor="let question of questionsList | slice:0:questionsList.length; let i = index;">
+          <mat-expansion-panel-header>
+            <mat-panel-description>
+              {{ question.text }}
+              <mat-icon>help</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <section fxLayoutAlign="center center">
+            <mat-card id="MainCard">
+              <mat-card-title fxLayoutAlign="center">Enter new data</mat-card-title>
+              <mat-card-content fxLayoutAlign="center">
+                <form fxLayout="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="editQuestion(f)">
+                  <mat-form-field>
+                    <input type="text" readonly matInput placeholder="Question Id" [(ngModel)]="question.id" name="id" />
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Question text" [(ngModel)]="question.text" name="text" required #titleInput="ngModel">
+                    <mat-error *ngIf="titleInput.hasError('required')">Please set text for your question</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Correct answer" [(ngModel)]="question.correctAnswer" name="correctAnswer" required #corAnsInput="ngModel">
+                    <mat-error *ngIf="corAnsInput.hasError('required')">Required field</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Wrong answer 1" [(ngModel)]="question.answer1" name="answer1" required #ans1Input="ngModel">
+                    <mat-error *ngIf="ans1Input.hasError('required')">Required field</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Wrong answer 2" [(ngModel)]="question.answer2" name="answer2" required #ans2Input="ngModel">
+                    <mat-error *ngIf="ans2Input.hasError('required')">Required field</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Wrong answer 3" [(ngModel)]="question.answer3" name="answer3" required #ans3Input="ngModel">
+                    <mat-error *ngIf="ans3Input.hasError('required')">Required field</mat-error>
+                  </mat-form-field>
+                  <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Edit</button>
+                </form>
+              </mat-card-content>
+            </mat-card>
+          </section>
+          <mat-action-row>
+            <button type="button" mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button type="button" mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card>
+  </div>
+</div>

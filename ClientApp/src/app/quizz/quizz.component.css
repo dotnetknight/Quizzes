@@ -1,0 +1,44 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 50%;
+}
+
+td, th {
+  width: 15%;
+  margin-right:10px;
+}
+
+mat-card {
+  margin: 4px;
+  width: 90%;
+}
+
+
+#dtDiv {
+  width: 100%;
+}
+
+.example-container {
+  height: 400px;
+  width: 98%;
+  overflow: auto;
+}
+
+#MainDiv {
+  padding: 10px;
+}
+
+#TitleTh, TitleTd {
+  width: 40%;
+}
+#QuestionsTd, QuestionsTh {
+  width: 25%;
+}
+#EditTh, EditTd {
+ margin-right:180px;
+}
+

@@ -1,0 +1,37 @@
+.searchData {
+  padding: 15px;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+#card-container {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 15px;
+}
+
+mat-card {
+  width: 150px;
+  height: 130px;
+  margin: 4px;
+}
+
+.playBtn {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+mat-card-actions {
+  position: center;
+  vertical-align: bottom;
+}
+
+#searchSection {
+  padding: 30px;
+}
+
+#searchCard {
+  width: 100%;
+}

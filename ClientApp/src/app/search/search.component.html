@@ -1,0 +1,13 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+
+<div id="card-container" fxLayoutAlign="center center" *ngIf="!isLoading">
+  <mat-card *ngFor="let quiz of quizList">
+    <mat-card-header fxLayoutAlign="center center" class="playBtn">
+      <mat-card-title fxLayoutAlign="center center">{{ quiz.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions fxLayoutAlign="center center">
+      <button mat-raised-button color="primary" (click)="playQuiz(quiz.id)" title="Play"><mat-icon>play_arrow</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+</div>

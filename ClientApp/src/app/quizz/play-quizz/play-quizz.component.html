@@ -1,0 +1,49 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<section fxLayoutAlign="center center" *ngIf="!haveQuizzes" id="NqSection">
+  <mat-card id="MainCard1">
+    <mat-card-title fxLayoutAlign="center center">{{ cardTitle }}</mat-card-title>
+    <mat-card-content fxLayoutAlign="center center" *ngIf="noQuestions">
+      <button mat-fab class="fabBTN" (click)="addQuestion()" color="primary" title="Add Question"><mat-icon>question_answer</mat-icon></button>
+      <button mat-fab class="fabBTN" (click)="myQuizzes()" color="accent" title="My Quizzes"><mat-icon>help</mat-icon></button>
+      <button mat-fab class="fabBTN" title="Search Quizzes" (click)="searchQuizzes()"><mat-icon>search</mat-icon></button>
+    </mat-card-content>
+    <mat-card-content fxLayoutAlign="center center" *ngIf="gameFinished">
+      <button mat-fab class="fabBTN" (click)="play()" color="primary" title="Play Again"><mat-icon>autorenew</mat-icon></button>
+      <button mat-fab class="fabBTN" (click)="myQuizzes()" color="accent" title="My Quizzes"><mat-icon>help</mat-icon></button>
+      <button mat-fab class="fabBTN" title="Search Quizzes" (click)="searchQuizzes()"><mat-icon>search</mat-icon></button>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<div id="quizDiv" fxLayoutAlign="center center" *ngIf="haveQuizzes">
+  <mat-accordion class="example-headers-align" *ngIf="!isLoading">
+    <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle *ngFor="let question of questionList | slice:0:questionList.lenght; let i = index;">
+      <mat-expansion-panel-header>
+        <mat-panel-description>
+          {{ question.text }}
+          <mat-icon>help</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <section fxLayoutAlign="center center">
+        <mat-card id="MainCard">
+          <mat-card-title fxLayoutAlign="center">Choose an answer</mat-card-title>
+          <mat-card-content fxLayoutAlign="center">
+            <mat-radio-group class="example-radio-group" [(ngModel)]="question.selectedAnswer">
+
+              <mat-radio-button class="example-radio-button" *ngFor="let answer of question.answers" [value]="answer">
+                {{answer}}
+              </mat-radio-button>
+            </mat-radio-group>
+
+          </mat-card-content>
+        </mat-card>
+      </section>
+      <mat-action-row>
+        <button type="button" mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button type="button" mat-button color="primary" (click)="nextStep()">Next</button>
+        <button mat-button color="primary" (click)="finish()" *ngIf="end">Finish</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

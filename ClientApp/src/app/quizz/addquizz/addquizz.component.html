@@ -1,0 +1,27 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<section fxLayoutAlign="center center" *ngIf="!isLoading">
+  <mat-card id="MainCard">
+    <mat-card-title fxLayoutAlign="center">Add Quizz!</mat-card-title>
+    <mat-card-content fxLayoutAlign="center">
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="addQuiz(f)">
+        <mat-form-field>
+          <input type="text" matInput placeholder="Title" ngModel name="title" required #titleInput="ngModel">
+          <mat-error *ngIf="titleInput.hasError('required')">Please set title for your quiz</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!isLoading">
+          <mat-select placeholder="Choose category" required ngModel name="categoryId" #catInput="ngModel">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let category of categoryList" [value]="category.id">
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="catInput.hasError('required')">Please choose a category</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Add</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>
+

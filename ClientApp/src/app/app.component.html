@@ -1,0 +1,11 @@
+<app-header (sidenavToggle)="sideNav.toggle()"></app-header>
+<mat-sidenav-container>
+  <mat-sidenav fxShow #sideNav role="navigation" mode="{{modeVal}}" opened="{{openedVal}}" style="background-color: white; ">
+    <app-side-nav (showOrCloseSidenav)=" sideNav.toggle() "></app-side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

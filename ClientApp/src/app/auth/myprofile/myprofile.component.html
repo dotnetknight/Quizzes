@@ -1,0 +1,28 @@
+<div id="card-container" fxLayoutAlign="center" *ngIf="gotData" fxFlex="90%" fxFlex.xs="100%">
+  <mat-card>
+    <mat-card-title fxLayoutAlign="center">My Profile:</mat-card-title>
+    <mat-card-content fxLayoutAlign="center center" fxLayout="column">
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="save(f)" *ngIf="gotData">
+        <mat-form-field>
+          <input type="text" matInput placeholder="First name" [(ngModel)]="myProfileList.firstName" name="firstName" required #firstNameInput="ngModel" />
+          <mat-error *ngIf="firstNameInput.hasError('required')">Required field</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Last name" [(ngModel)]="myProfileList.lastName" name="lastName" required #lastNameInput="ngModel" />
+          <mat-error *ngIf="lastNameInput.hasError('required')">Required field</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="email" readonly matInput placeholder="Your Email(Unchangeable)" [(ngModel)]="myProfileList.email" name="email" required #emailInput="ngModel" />
+        </mat-form-field>
+        <mat-form-field hintLabel="Should be at least 6 charcters long.">
+          <input type="password" matInput placeholder="New Password" #pwd="ngModel" ngModel name="passwordHash" required minlength="6">
+          <mat-hint align="end">{{ pwd.value?.length }} / 6</mat-hint>
+          <mat-error>At least 6 characters required. Currently: {{ pwd.value?.length }} /6</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Save</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<app-spinner fxLayoutAlign="center center" *ngIf="!gotData"></app-spinner>
